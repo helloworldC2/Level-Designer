@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/jar/disruptor.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Level Designer/lib/native/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jar/AppleJavaExtensions.jar"/>
+	<classpathentry kind="lib" path="lib/jar/asm-debug-all.jar"/>
+	<classpathentry kind="lib" path="lib/jar/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl_test.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl_util_applet.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lwjgl-debug.jar"/>
+	<classpathentry kind="lib" path="lib/jar/lzma.jar"/>
+	<classpathentry kind="lib" path="lib/jar/PNGDecoder.jar"/>
+	<classpathentry kind="lib" path="res"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
