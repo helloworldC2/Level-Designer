@@ -8,7 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,28 +20,70 @@ import javax.swing.JMenuItem;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
+
+
 public class CustomDisplay implements WindowListener {
 
 	private static float yScale;
 	private static float xScale;
+	final JFileChooser fc = new JFileChooser();
 
 	public void create(boolean isFullscreen,final Main main) {
 		if (!isFullscreen) {
 			main.frame.addWindowListener(this);
-			main.canvas.setBounds(0, 0, (int) main.width,
-					(int) main.height);
+			main.canvas.setBounds(0, 0, (int) main.width,(int) main.height);
 			main.canvas.setIgnoreRepaint(true);
-			main.canvas.setFocusable(true);	
+			main.canvas.setFocusable(true);
 			JMenuBar menubar = new JMenuBar();
 			JMenu file = new JMenu("File");
 			JMenuItem save = new JMenuItem("Save");
 	        save.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
-	                main.level.saveLevel("Arena");
+	            	
+	            	int returnVal = fc.showOpenDialog(main.frame);
+	            	if(returnVal == 0){
+	            		File file = fc.getSelectedFile();
+	            		main.level.saveLevel(file);
+	            	}
+	            	
 	            }
 	        });
+	        JMenuItem load = new JMenuItem("Load");
+	        load.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent event) {
+	            	
+	            	int returnVal = fc.showOpenDialog(main.frame);
+	            	if(returnVal == 0){
+	            		File file = fc.getSelectedFile();
+	            		try {
+							main.level.loadLevel(file);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+	            	}
+	            	
+	            }
+	        });
+	        JMenuItem neew = new JMenuItem("New");
+	        neew.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent event) {
+	            	
+	            	int returnVal = fc.showOpenDialog(main.frame);
+	            	if(returnVal == 0){
+	            		File file = fc.getSelectedFile();
+	            		
+						//main.level.blankLevel(file);
+			
+	            	}
+	            	
+	            }
+	        });
+	        file.add(neew);
 	        file.add(save);
+	        file.add(load);
 	        JMenu tiles = new JMenu("Tiles");
 	        JMenuItem wall = new JMenuItem("Wall");
 	        wall.addActionListener(new ActionListener() {
