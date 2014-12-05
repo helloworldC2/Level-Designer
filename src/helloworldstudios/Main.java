@@ -4,15 +4,16 @@ import helloworldstudios.util.CustomDisplay;
 import helloworldstudios.util.SpriteSheet;
 
 import java.awt.Canvas;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+
 
 
 
@@ -48,42 +49,13 @@ public class Main {
 		double delta = 0;
 		while (!Display.isCloseRequested()) {
 
-			long now = System.nanoTime();
-			delta += (now - lastTime) / nsPerTick;
-			lastTime = now;
-
-			boolean shouldRender = true;
-
-			while (delta >= 1) {
-				if (Keyboard.isKeyDown(Keyboard.KEY_LMENU)
-						&& Keyboard.isKeyDown(Keyboard.KEY_F4))
-					break;
-				tick();
-				delta -= 1;
-				shouldRender = true;
-
-			}
+			tick();
+		
 			render();
-			try {
-				Thread.sleep(2);
-
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			if (shouldRender) {
-				framesPS++;
+	
 				update();
 
-			}
-
-			if (System.currentTimeMillis() - lastTimer >= 1000) {
-				lastTimer += 1000;
-				fps = framesPS;
-				framesPS = 0;
-
-			}
-
+		
 		}
 
 		// exit(0);
@@ -117,7 +89,7 @@ public class Main {
 	private void init() {
 		this.level = new Level(this);
 		try {
-			level.loadLevel("");
+			level.loadLevel(new File(""));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
