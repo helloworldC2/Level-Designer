@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -40,13 +41,6 @@ public class Main {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		init();
 
-		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D / 60D;
-
-		int framesPS = 0;
-
-		long lastTimer = System.currentTimeMillis();
-		double delta = 0;
 		while (!Display.isCloseRequested()) {
 
 			tick();
@@ -66,7 +60,21 @@ public class Main {
 		if(Mouse.isButtonDown(0)){
 			level.setTile((int)(Mouse.getX()*CustomDisplay.getxScale())>>5, (int)(Mouse.getY()*CustomDisplay.getyScale())>>5, selectedTile);
 		}
-
+		while (Mouse.next()){
+		    if (Mouse.getEventButtonState()) {
+		        if (Mouse.getEventButton() == 0) {
+		            System.out.println("Left button pressed");
+		        }
+		    }else {
+		        if (Mouse.getEventButton() == 0) {
+		            System.out.println("Left button released");
+		            level.addToEditList();
+		        }
+		    }
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)&&Keyboard.isKeyDown(Keyboard.KEY_Z)){
+			level.undo();
+		}
 	}
 
 	private void render() {

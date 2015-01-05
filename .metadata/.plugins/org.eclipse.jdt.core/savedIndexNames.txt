@@ -1,0 +1,1 @@
+INDEX VERSION 1.127+C:\Users\Joel\Documents\GitHub\Level-Designer\.metadata\.plugins\org.eclipse.jdt.core

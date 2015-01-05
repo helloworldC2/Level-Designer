@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.ImageFilter;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileFilter;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -36,12 +38,14 @@ public class CustomDisplay implements WindowListener {
 			main.canvas.setFocusable(true);
 			JMenuBar menubar = new JMenuBar();
 			JMenu file = new JMenu("File");
+			fc.addChoosableFileFilter(new MapFileFilter());
+			fc.setAcceptAllFileFilterUsed(false);
 			JMenuItem save = new JMenuItem("Save");
 	        save.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
 	            	
-	            	int returnVal = fc.showOpenDialog(main.frame);
+	            	int returnVal = fc.showDialog(main.frame,"Save");
 	            	if(returnVal == 0){
 	            		File file = fc.getSelectedFile();
 	            		main.level.saveLevel(file);
@@ -49,7 +53,7 @@ public class CustomDisplay implements WindowListener {
 	            	
 	            }
 	        });
-	        JMenuItem load = new JMenuItem("Load");
+	        JMenuItem load = new JMenuItem("Open");
 	        load.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
@@ -70,15 +74,8 @@ public class CustomDisplay implements WindowListener {
 	        neew.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
-	            	
-	            	int returnVal = fc.showOpenDialog(main.frame);
-	            	if(returnVal == 0){
-	            		File file = fc.getSelectedFile();
-	            		
+
 						//main.level.blankLevel(file);
-			
-	            	}
-	            	
 	            }
 	        });
 	        file.add(neew);

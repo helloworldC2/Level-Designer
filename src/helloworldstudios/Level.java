@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 public class Level {
 
@@ -15,16 +16,16 @@ public class Level {
 	private int width, height;
 	private byte[] tiles;
 	public Tile selected;
-	
-
+	public ArrayList<byte[]> editList = new ArrayList<byte[]>();
+	private int posInEditList = -1;
 	public Level(Main m) {
 		this.main = m;
 	}
 	
-	public boolean loadLevel(String path) throws IOException {
+	public boolean loadLevel(File path) throws IOException {
 		String everything = "@";
-		if(new File("Arena.txt").exists()){
-		BufferedReader br = new BufferedReader(new FileReader("Arena.txt"));
+		if(path.exists()){
+		BufferedReader br = new BufferedReader(new FileReader(path));
 	    try {
 	        StringBuilder sb = new StringBuilder();
 	        String line = br.readLine();
@@ -71,17 +72,17 @@ public class Level {
 			}
 		}
 		}
-		
+		addToEditList();
 		return false;
 	}
 
-	public boolean saveLevel(String name) {
+	public boolean saveLevel(File file) {
 		long time = System.currentTimeMillis();
 		Writer writer = null;
 
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(name + ".txt"), "utf-8"));// TODO add seperate folder for levels
+					new FileOutputStream(file+".map"), "utf-8"));// TODO add seperate folder for levels
 	
 			writer.write(width+","+height+"@");
 			writer.write("\n");
@@ -103,7 +104,7 @@ public class Level {
 		}
 		long dt = System.currentTimeMillis()-time;
 		System.out.println("Saved in: "+dt+" ms");
-		System.out.println("Saved at: "+name + ".txt");
+		System.out.println("Saved at: "+file.getAbsolutePath());
 		return true;
 	}
 
@@ -131,5 +132,28 @@ public class Level {
 			}
 		}
 
+	}
+
+	public void addToEditList() {
+		posInEditList++;
+		byte[] t = tiles;
+		editList.add(t);
+		System.out.println("Added to list");
+		
+	}
+	public void undo(){
+		if(posInEditList<1){
+			//System.out.println(posInEditList);
+			return;
+		}
+		posInEditList-=1;
+		System.out.println("Undone");
+		System.out.println(editList.get(posInEditList));
+		tiles = editList.get(posInEditList);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				System.out.print(tiles[x+y*width]);
+			}
+		}
 	}
 }
