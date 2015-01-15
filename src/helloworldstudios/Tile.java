@@ -11,6 +11,9 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex2f;
+
+import javax.swing.Icon;
+
 import helloworldstudios.util.SpriteSheet;
 
 
@@ -18,16 +21,22 @@ import helloworldstudios.util.SpriteSheet;
 public  class Tile {
 
 
-	public static final Tile[] tiles = new Tile[256];
-	public static final Tile VOID = new Tile(0);
-	public static final Tile GRASS = new Tile(1);
-	public static final Tile WATER = new Tile(2);
-	public static final Tile WALL = new Tile(3);
-	public static final Tile SAND = new Tile(4);
-	public static final Tile REDLIGHT = new Tile(5);
-	public static final Tile GREENLIGHT = new Tile(6);
-	public static final Tile START1 = new Tile(7);
-	public static final Tile START2 = new Tile(8);
+	public static final Tile[] tiles = new Tile[14];
+	public static final Tile VOID = new Tile(0,'v',"Void");
+	public static final Tile GRASS = new Tile(1,'g',"Grass");
+	public static final Tile WATER = new Tile(2,'w',"Water");
+	public static final Tile WALL = new Tile(3,'a',"Wall");
+	public static final Tile SAND = new Tile(4,'s',"Sand");
+	public static final Tile REDLIGHT = new Tile(5,'r',"Red Light");
+	public static final Tile GREENLIGHT = new Tile(6,'l',"Green Light");
+	public static final Tile START1 = new Tile(7,'S',"Start");
+	public static final Tile START2 = new Tile(8,'R',"End");
+	public static final Tile AMBERLIGHT = new Tile(9,'m',"Amber Light");
+	public static final Tile TREASURE0 = new Tile(10,'z',"Treasure 0");
+	public static final Tile TREASURE1 = new Tile(11,'x',"Treasure 1");
+	public static final Tile TREASURE2 = new Tile(12,'y',"Treasure 2");
+	public static final Tile TREASURE3 = new Tile(13,'p',"Treasure 3");
+	
 	
 
 	protected byte id;
@@ -37,10 +46,13 @@ public  class Tile {
 	int texture;
 	float textureWidth = 1.0f/16.0f;
 	float textureX,textureY;
-
+	public char c;
+	private String name;
 	
-	public Tile(int id) {
+	public Tile(int id,char c,String name) {
 		this.id = (byte)id;
+		this.c = c;
+		this.name = name;
 		if(tiles[id] != null) throw new RuntimeException("Duplicant tile id at " + id);
 		tiles[id] = this;
 	}
@@ -49,7 +61,13 @@ public  class Tile {
 	{
 		return id;
 	}
-
+	public static byte getId(char c)
+	{
+		for(Tile t: tiles){
+			if(t.c==c)return t.id;
+		}
+		return 0;
+	}
 	
 	private  void getTexture(int i){
 		
@@ -78,7 +96,15 @@ public  class Tile {
         glDisable(GL_TEXTURE_2D);
       
 	}
-	
+	public char getChar(byte id){
+		for(Tile t: tiles){
+			if(t.id==id)return t.c;
+		}
+		return 'v';
+	}
+	public char getChar(){
+		return this.c;
+	}
 	public Tile setX(int x2) {
 		// TODO Auto-generated method stub
 		this.x = x2;
@@ -101,6 +127,11 @@ public  class Tile {
 	public int getX() {
 		// TODO Auto-generated method stub
 		return this.x;
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return this.name;
 	}
 
 	

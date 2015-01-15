@@ -55,7 +55,7 @@ public class Level {
 	    		continue;
 	    	}
 	    		try{
-	    		this.setTile(x,y,Tile.tiles[Integer.parseInt(String.valueOf(data[1].charAt(i)))]);
+	    		this.setTile(x,y,Tile.tiles[Tile.getId(data[1].charAt(i))]);
 	    		}catch(Exception e){
 	    			
 	    		}
@@ -82,14 +82,14 @@ public class Level {
 
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(file+".map"), "utf-8"));// TODO add seperate folder for levels
+					new FileOutputStream(file+".txt"), "utf-8"));// TODO add seperate folder for levels
 	
 			writer.write(width+","+height+"@");
 			writer.write("\n");
 
 			for (int y = height-1; y >= 0; y--) {
 				for (int x = 0; x < width; x++) {
-					writer.write(String.valueOf(getTile(x,y).getId()));
+					writer.write(String.valueOf(getTile(x,y).getChar()));
 				}
 				writer.write(";\n");
 			}

@@ -15,7 +15,7 @@ public class MapFileFilter extends FileFilter {
 
 				String extension = getExtension(f);
 				if (extension != null) {
-						if (extension.equals("map")){
+						if (extension.equals("txt")){
 										return true;
 						} else {
 								return false;

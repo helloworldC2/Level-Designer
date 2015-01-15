@@ -82,71 +82,82 @@ public class CustomDisplay implements WindowListener {
 	        file.add(save);
 	        file.add(load);
 	        JMenu tiles = new JMenu("Tiles");
-	        JMenuItem wall = new JMenuItem("Wall");
-	        wall.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.WALL;
-	            }
-	        });
-	        JMenuItem sand = new JMenuItem("sand");
-	        sand.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.SAND;
-	            }
-	        });
-	        JMenuItem water = new JMenuItem("water");
-	        water.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.WATER;
-	            }
-	        });
-	        JMenuItem redlight = new JMenuItem("redlight");
-	        redlight.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.REDLIGHT;
-	            }
-	        });
-	        JMenuItem greenlight = new JMenuItem("greenlight");
-	        greenlight.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.GREENLIGHT;
-	            }
-	        });
-	        JMenuItem start1 = new JMenuItem("start1");
-	        start1.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.START1;
-	            }
-	        });
-	        JMenuItem start2 = new JMenuItem("start2");
-	        start2.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	                main.selectedTile = Tile.START2;
-	            }
-	        });
-	        JMenuItem grass = new JMenuItem("Grass");
-	        grass.setMnemonic(KeyEvent.VK_D);
-	        grass.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent event) {
-	            	 main.selectedTile = Tile.GRASS;
-	            }
-	        });
-	        tiles.add(grass);
-	        tiles.add(water);
-	        tiles.add(wall);
-	        tiles.add(sand);
-	        tiles.add(redlight);
-	        tiles.add(greenlight);
-	        tiles.add(start1);
-	        tiles.add(start2);
+	        for(final Tile tile: Tile.tiles){
+		        JMenuItem wall = new JMenuItem(tile.getName());
+		        wall.addActionListener(new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent event) {
+		                main.selectedTile = tile;
+		            }
+		        });
+		        tiles.add(wall);
+	        }
+//	        JMenu tiles = new JMenu("Tiles");
+//	        JMenuItem wall = new JMenuItem("Wall");
+//	        wall.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.WALL;
+//	            }
+//	        });
+//	        JMenuItem sand = new JMenuItem("sand");
+//	        sand.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.SAND;
+//	            }
+//	        });
+//	        JMenuItem water = new JMenuItem("water");
+//	        water.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.WATER;
+//	            }
+//	        });
+//	        JMenuItem redlight = new JMenuItem("redlight");
+//	        redlight.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.REDLIGHT;
+//	            }
+//	        });
+//	        JMenuItem greenlight = new JMenuItem("greenlight");
+//	        greenlight.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.GREENLIGHT;
+//	            }
+//	        });
+//	        JMenuItem start1 = new JMenuItem("start1");
+//	        start1.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.START1;
+//	            }
+//	        });
+//	        JMenuItem start2 = new JMenuItem("start2");
+//	        start2.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	                main.selectedTile = Tile.START2;
+//	            }
+//	        });
+//	        JMenuItem grass = new JMenuItem("Grass");
+//	        grass.setMnemonic(KeyEvent.VK_D);
+//	        grass.addActionListener(new ActionListener() {
+//	            @Override
+//	            public void actionPerformed(ActionEvent event) {
+//	            	 main.selectedTile = Tile.GRASS;
+//	            }
+//	        });
+//	        tiles.add(grass);
+//	        tiles.add(water);
+//	        tiles.add(wall);
+//	        tiles.add(sand);
+//	        tiles.add(redlight);
+//	        tiles.add(greenlight);
+//	        tiles.add(start1);
+//	        tiles.add(start2);
 	        menubar.add(file);
 	        menubar.add(tiles);
 
